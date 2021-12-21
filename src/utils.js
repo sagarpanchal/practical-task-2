@@ -5,15 +5,15 @@ export const isNumber = (value) =>
   value?.constructor?.name === 'Number' && !Number.isNaN(value) && Number.isFinite(value);
 export const isDate = (value) => value?.constructor?.name === 'Date';
 
-export const isEmpty = (value) => {
-  if ([undefined, null].includes(value)) return true;
-
-  if (isArray(value)) return Boolean(value?.length);
-  if (isObject(value)) return Boolean(Object.keys(value)?.length);
-  if (isString(value)) return Boolean(value?.trim());
-  if (isNumber(value)) return true;
-
+export const isEmpty = (input, except = []) => {
+  if (except?.includes?.(input)) return false;
+  const type = input?.constructor?.name;
+  if ([undefined, null].includes(input)) return true;
+  if (type === 'Array') return !input.length;
+  if (type === 'Number') return Number.isNaN(input);
+  if (type === 'Object') return !Object.keys(input).length;
+  if (type === 'String') return !input.trim().length;
   return false;
 };
 
-export const isNotEmpty = (value) => !isEmpty(value);
+export const isNotEmpty = (...args) => !isEmpty(...args);

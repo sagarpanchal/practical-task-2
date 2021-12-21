@@ -55,7 +55,7 @@ function Filter() {
 
   const usableFilters = React.useMemo(() => {
     return filterList.filter((_filter) => {
-      return !Object.values(_filter).map(isNotEmpty).includes(true);
+      return !Object.values(_filter).map(isEmpty).includes(true);
     });
   }, [filterList]);
 

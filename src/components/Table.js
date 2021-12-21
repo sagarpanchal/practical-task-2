@@ -1,12 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { isArray, isEmpty } from 'utils';
+
 function Table(props) {
   const { list } = props;
 
   const fields = React.useMemo(() => Object.keys(list?.[0] ?? {}), [list]);
 
-  return (
+  return !isArray(list) || isEmpty(list) ? (
+    <div>
+      <span className="error">No Data Found</span>
+    </div>
+  ) : (
     <div>
       <table>
         <thead>
